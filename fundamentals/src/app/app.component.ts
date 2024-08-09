@@ -2,7 +2,11 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {CommonModule} from "@angular/common";
 
-
+interface Passenger {
+  id: number,
+  fullname: string,
+  checkedIn: boolean
+}
 
 @Component({
   selector: 'app-root',
@@ -10,30 +14,48 @@ import {CommonModule} from "@angular/common";
   imports: [RouterOutlet, CommonModule],
   template: `
     <div class="app">
-        <input type="text"
-            [value]="name"
-            (input)="handleChange($event)">
 
-      <ng-template [ngIf]="name.length > 3">
-        <div>
-          Searching for ... {{ name }}
-        </div>
-      </ng-template>
+      <h3>Peru Passengers</h3>
+
+      <ul>
+      <ng-container *ngFor="let passenger of passengers; let i = index">
+        <li>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ng-container>
+      </ul>
+
+      <h3>Peru Passengers</h3>
+
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>
 
 
-        <div *ngIf="name.length > 3">
-          Searching for .... {{name}}
-        </div>
     </div>
   `,
   styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  name: string = 'Joe';
 
-  handleChange(event: any){
-    const input = event.target as HTMLInputElement;
-    this.name = input.value;
+  passengers: Passenger[] = [{
+    id:1,
+    fullname: 'Joe',
+    checkedIn: true
+  },{
+    id:2,
+    fullname: 'Miryan',
+    checkedIn: false
+  },{
+    id:3,
+    fullname: 'Deborah',
+    checkedIn: true
+  },{
+    id:4,
+    fullname: 'Maria',
+    checkedIn: true
   }
-
+  ]
 }
