@@ -9,7 +9,7 @@ interface Passenger {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-ngfor',
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   template: `
@@ -18,20 +18,17 @@ interface Passenger {
       <h3>Peru Passengers</h3>
 
       <ul>
-        <li *ngFor="let passenger of passengers; let i = index;">
-          <span class="status" [class.checked-in]="passenger.checkedIn"></span>
+      <ng-container *ngFor="let passenger of passengers; let i = index">
+        <li>
           {{ i }}: {{ passenger.fullname }}
         </li>
+      </ng-container>
       </ul>
 
-      <h3>Airline Passengers</h3>
+      <h3>Peru Passengers</h3>
 
       <ul>
         <li *ngFor="let passenger of passengers; let i = index;">
-          <span class="status" [ngClass]="{
-                'checked-in'  : passenger.checkedIn,
-                'checked-out'  : !passenger.checkedIn
-          }"></span>
           {{ i }}: {{ passenger.fullname }}
         </li>
       </ul>
@@ -41,7 +38,7 @@ interface Passenger {
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class NgForComponent {
 
   passengers: Passenger[] = [{
     id:1,
@@ -58,7 +55,7 @@ export class AppComponent {
   },{
     id:4,
     fullname: 'Maria',
-    checkedIn: false
+    checkedIn: true
   }
   ]
 }
