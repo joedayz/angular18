@@ -16,7 +16,7 @@ interface Passenger {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-safe-navigation',
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   template: `
@@ -51,7 +51,7 @@ interface Passenger {
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class SafeNavigationComponent {
 
   passengers: Passenger[] = [{
     id:1,
