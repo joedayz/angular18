@@ -2,11 +2,17 @@ import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import {CommonModule} from "@angular/common";
 
+interface Child{
+  name: string,
+  age: number
+}
+
 interface Passenger {
   id: number,
   fullname: string,
   checkedIn: boolean,
-  checkInDate: number | null
+  checkInDate: number | null,
+  children: Child[] | null
 }
 
 @Component({
@@ -30,6 +36,9 @@ interface Passenger {
             {{ passenger.checkInDate ? ( passenger.checkInDate | date: 'yMMMd' | uppercase ) : 'Not checked in' }}
           </div>
 
+          <div class="children">
+            Children: {{ passenger.children?.length || 0 }}
+          </div>
         </li>
       </ul>
 
@@ -48,22 +57,26 @@ export class AppComponent {
     id:1,
     fullname: 'Joe',
     checkedIn: true,
-    checkInDate: 1490742000000
+    checkInDate: 1490742000000,
+    children: [ { name: 'Elias', age: 12}, { name: 'Deborah', age: 7}]
   },{
     id:2,
     fullname: 'Miryan',
     checkedIn: false,
-    checkInDate: null
+    checkInDate: null,
+    children: null
   },{
     id:3,
     fullname: 'Deborah',
     checkedIn: true,
-    checkInDate: 1491606000000
+    checkInDate: 1491606000000,
+    children: [ { name: 'Felipe', age: 11}]
   },{
     id:4,
     fullname: 'Maria',
     checkedIn: false,
-    checkInDate: null
+    checkInDate: null,
+    children: null
   }
   ]
 }
