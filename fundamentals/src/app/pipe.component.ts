@@ -10,7 +10,7 @@ interface Passenger {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-pipe',
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   template: `
@@ -42,7 +42,7 @@ interface Passenger {
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class PipeComponent {
 
   passengers: Passenger[] = [{
     id:1,

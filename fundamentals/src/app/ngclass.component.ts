@@ -10,7 +10,7 @@ interface Passenger {
 }
 
 @Component({
-  selector: 'app-root',
+  selector: 'app-ngclass',
   standalone: true,
   imports: [RouterOutlet, CommonModule],
   template: `
@@ -22,27 +22,27 @@ interface Passenger {
         <li *ngFor="let passenger of passengers; let i = index;">
           <span class="status" [class.checked-in]="passenger.checkedIn"></span>
           {{ i }}: {{ passenger.fullname }}
-
-          <p>{{ passenger | json }}</p>
-
-          <div class="date">
-            Check in date:
-            {{ passenger.checkInDate ? ( passenger.checkInDate | date: 'yMMMd' | uppercase ) : 'Not checked in' }}
-          </div>
-
         </li>
       </ul>
 
+      <h3>Airline Passengers</h3>
 
-
-
+      <ul>
+        <li *ngFor="let passenger of passengers; let i = index;">
+          <span class="status" [ngClass]="{
+                'checked-in'  : passenger.checkedIn,
+                'checked-out'  : !passenger.checkedIn
+          }"></span>
+          {{ i }}: {{ passenger.fullname }}
+        </li>
+      </ul>
 
 
     </div>
   `,
   styleUrl: './app.component.scss'
 })
-export class AppComponent {
+export class NgClassComponent {
 
   passengers: Passenger[] = [{
     id:1,
