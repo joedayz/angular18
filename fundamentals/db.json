@@ -1,0 +1,32 @@
+{
+  "passengers": [
+    {
+      "id": "2",
+      "fullname": "Jose Diaz",
+      "checkedIn": false,
+      "checkInDate": null,
+      "children": [
+        {
+          "name": "Ted",
+          "age": 12
+        },
+        {
+          "name": "Chloe",
+          "age": 7
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "fullname": "Miryan Wilson",
+      "checkedIn": true,
+      "checkInDate": 1488412800000,
+      "children": [
+        {
+          "name": "Jessica",
+          "age": 1
+        }
+      ]
+    }
+  ]
+}

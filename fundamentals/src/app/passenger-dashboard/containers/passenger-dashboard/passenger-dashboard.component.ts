@@ -3,7 +3,7 @@ import {Passenger} from "../../models/passenger.interface";
 import {DatePipe, NgForOf, UpperCasePipe} from "@angular/common";
 import {PassengerCountComponent} from "../../components/passenger-count/passenger-count.component";
 import {PassengerDetailComponent} from "../../components/passenger-detail/passenger-detail.component";
-import {PassengerDashboardService} from "../../models/passenger-dashboard.service";
+import {PassengerDashboardService} from "../../services/passenger-dashboard.service";
 
 
 @Component({
@@ -36,21 +36,30 @@ export class PassengerDashboardComponent implements  OnInit{
   }
 
   ngOnInit(): void {
-    this.passengers = this.passengerService.getPassengers();
+    this.passengerService.getPassengers()
+    .subscribe( (data : Passenger[]) => this.passengers = data);
   }
 
   handleEdit(event: Passenger) {
-   this.passengers = this.passengers.map( (passenger : Passenger )  => {
-      if(passenger.id == event.id){
-        passenger = Object.assign({}, passenger, event);
-      }
-      return passenger;
-   });
+      this.passengerService
+        .updatePassenger(event)
+        .subscribe( (data : Passenger) => {
+          this.passengers = this.passengers.map((passenger: Passenger) => {
+            if(passenger.id===event.id){
+              passenger = Object.assign({}, passenger, event);
+            }
+            return passenger;
+          });
+        })
   }
 
   handleRemove(event: Passenger) {
-    this.passengers = this.passengers.filter( (passenger : Passenger )  => {
-      return passenger.id != event.id;
-    });
+    this.passengerService
+      .removePassenger(event)
+      .subscribe((data: Passenger) => {
+        this.passengers = this.passengers.filter((passenger: Passenger) => {
+          return passenger.id !== event.id;
+        });
+      });
   }
 }
