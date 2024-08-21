@@ -1,8 +1,18 @@
-import { Routes } from '@angular/router';
+import {Routes} from '@angular/router';
 import {HomeComponent} from "./home.component";
 import {NotFoundComponent} from "./not-found.component";
+import {
+  PassengerDashboardComponent
+} from "./passenger-dashboard/containers/passenger-dashboard/passenger-dashboard.component";
+import {PassengerViewerComponent} from "./passenger-dashboard/components/passenger-viewer/passenger-viewer.component";
 
 export const routes: Routes = [
-  { path: '', component: HomeComponent, pathMatch: 'full'},
-  { path: '**', component: NotFoundComponent}
+  {path: '', component: HomeComponent, pathMatch: 'full'},
+  {
+    path: 'passengers', component: PassengerDashboardComponent,
+    children: [
+      { path: ':id', component: PassengerViewerComponent }
+    ]
+  },
+  {path: '**', component: NotFoundComponent}
 ];
