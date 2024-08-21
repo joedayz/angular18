@@ -3,6 +3,7 @@ import {Passenger} from "../../models/passenger.interface";
 import {DatePipe, NgForOf, UpperCasePipe} from "@angular/common";
 import {PassengerCountComponent} from "../../components/passenger-count/passenger-count.component";
 import {PassengerDetailComponent} from "../../components/passenger-detail/passenger-detail.component";
+import {PassengerDashboardService} from "../../models/passenger-dashboard.service";
 
 
 @Component({
@@ -30,46 +31,26 @@ import {PassengerDetailComponent} from "../../components/passenger-detail/passen
 export class PassengerDashboardComponent implements  OnInit{
 
   passengers: Passenger[] = [];
-  constructor() {
-    //para la inyeccion de dependencias
+
+  constructor(private passengerService: PassengerDashboardService) {
   }
 
   ngOnInit(): void {
-    //Traer datos de un servicio REST o configurar valores iniciales
-    this.passengers = [{
-      id:1,
-      fullname: 'Joe',
-      checkedIn: true,
-      checkInDate: 1490742000000,
-      children: [ { name: 'Elias', age: 12}, { name: 'Deborah', age: 7}]
-    },{
-      id:2,
-      fullname: 'Miryan',
-      checkedIn: false,
-      checkInDate: null,
-      children: null
-    },{
-      id:3,
-      fullname: 'Deborah',
-      checkedIn: true,
-      checkInDate: 1491606000000,
-      children: [ { name: 'Felipe', age: 11}]
-    },{
-      id:4,
-      fullname: 'Maria',
-      checkedIn: false,
-      checkInDate: null,
-      children: null
-    }
-    ];
-
+    this.passengers = this.passengerService.getPassengers();
   }
 
   handleEdit(event: Passenger) {
-    console.log(event);
+   this.passengers = this.passengers.map( (passenger : Passenger )  => {
+      if(passenger.id == event.id){
+        passenger = Object.assign({}, passenger, event);
+      }
+      return passenger;
+   });
   }
 
   handleRemove(event: Passenger) {
-    console.log(event)
+    this.passengers = this.passengers.filter( (passenger : Passenger )  => {
+      return passenger.id != event.id;
+    });
   }
 }
