@@ -24,7 +24,18 @@ import {NgForOf, NgIf} from "@angular/common";
         </div>
       </div>
 
-
+      <div>
+        Passenger ID:
+        <input
+          type="number"
+          name="id"
+          required
+          #id="ngModel"
+          [ngModel]="detail?.id">
+        <div *ngIf="id.errors?.['required'] && id.dirty" class="error">
+          Passenger ID is required
+        </div>
+      </div>
 
       <div>
         <label>

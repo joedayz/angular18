@@ -29,8 +29,8 @@ export class PassengerDashboardService {
     return this.httpClient.delete<Passenger>(`${PASSENGER_API}/${passenger.id}`, httpOptions);
   }
 
-  getPassenger(id: number): Observable<Passenger> {
+  getPassenger(id: number): Observable<any> {
 
-    return this.httpClient.get<Passenger>(`${PASSENGER_API}/${id}`);
+    return this.httpClient.get(`${PASSENGER_API}/${id}`, httpOptions);
   }
 }
