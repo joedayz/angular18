@@ -9,8 +9,9 @@ import {PassengerViewerComponent} from "./passenger-dashboard/components/passeng
 export const routes: Routes = [
   {path: '', component: HomeComponent, pathMatch: 'full'},
   {
-    path: 'passengers', component: PassengerDashboardComponent,
+    path: 'passengers',
     children: [
+      { path: '', component: PassengerDashboardComponent },
       { path: ':id', component: PassengerViewerComponent }
     ]
   },

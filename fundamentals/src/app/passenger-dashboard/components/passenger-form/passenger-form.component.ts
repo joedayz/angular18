@@ -19,30 +19,19 @@ import {NgForOf, NgIf} from "@angular/common";
           required
           #fullname="ngModel"
           [ngModel]="detail?.fullname">
-        <div *ngIf="fullname.errors?.required && fullname.dirty" class="error">
+        <div *ngIf="fullname.errors?.['required'] && fullname.dirty" class="error">
           Passenger name is required
         </div>
       </div>
 
-      <div>
-        Passenger ID:
-        <input
-          type="number"
-          name="id"
-          required
-          #id="ngModel"
-          [ngModel]="detail?.id">
-        <div *ngIf="id.errors?.required && id.dirty" class="error">
-          Passenger ID is required
-        </div>
-      </div>
+
 
       <div>
         <label>
           <input
             type="checkbox"
             name="checkedIn"
-            [ngModel]="detail?.checkedIn"
+            [ngModel]="detail?.['checkedIn']"
             (ngModelChange)="toggleCheckIn($event)">
         </label>
       </div>
@@ -117,7 +106,7 @@ export class PassengerFormComponent implements OnInit{
   }
 
 
-  handleSubmit(passenger: Passenger, isValid: boolean) {
+  handleSubmit(passenger: Passenger, isValid: boolean | null) {
     if(isValid){
       this.update.emit(passenger);
     }
@@ -126,7 +115,7 @@ export class PassengerFormComponent implements OnInit{
   toggleCheckIn(checkedIn: boolean) {
     if(checkedIn){
       // @ts-ignore
-      this.detail?.checkInDate = Date.now();
+      this.detail.checkInDate = Date.now();
     }
   }
 }
