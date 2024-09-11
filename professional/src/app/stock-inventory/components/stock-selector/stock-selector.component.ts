@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from "@angular/core";
-import {Product} from "../../models/product.interface";
+import {Component, Input} from "@angular/core";
 import {FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {Product} from "../../models/product.interface";
 import {NgForOf} from "@angular/common";
 
 @Component({
@@ -11,39 +11,32 @@ import {NgForOf} from "@angular/common";
     NgForOf
   ],
   template: `
-    <div [formGroup]="parent">
+
+    <div class="stock-selector" [formGroup]="parent">
       <div formGroupName="selector">
         <select formControlName="product_id">
           <option value="">Select stock</option>
-          <option *ngFor="let product of products" [value]="product.id">
-            {{ product.name }}
+          <option *ngFor="let product of products" [value] = "product.id">
+            {{ product.name}}
           </option>
         </select>
-
-        <input type="number" step="10" min="10" max="1000" formControlName="quantity">
-
-        <button type="button">Add Stock</button>
+        <input type="number"  formControlName="quantity">
+        <button type="button" >
+          Add Stock
+        </button>
       </div>
     </div>
+
   `
 })
-export class StockSelectorComponent implements OnInit {
+export class StockSelectorComponent  {
 
-  @Input() parent: FormGroup;
 
-  @Input() products: Product[];
+  @Input()
+  parent:  FormGroup;
 
-  ngOnInit(): void {
-    if (!this.parent) {
-      console.error('Parent formgroup is not initialized');
-    } else {
-      console.log('Parent inicializado');
-    }
+  @Input()
+  products: Product[];
 
-    if (!this.parent.get('selector')) {
-      console.error('FormGroup selector is not found in parent');
-    } else {
-      console.log('Selector encontrado');
-    }
-  }
+
 }
